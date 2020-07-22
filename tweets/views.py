@@ -26,3 +26,9 @@ def tweet_detail_view(request, tweet_id,*args, **kwargs):
         status = 404
     return JsonResponse(data, status=status)
 #HttpResponse(f"<h1>Hello {tweet_id}-{obj.content}</h1>")
+
+def tweet_list_view(request, *args, **kwargs):
+    qs = Tweet.objects.all() #qs=queryset, a convention
+    tweets_list =[{"id": x.id, "content": x.content,} for x in qs] #iterating through the list 
+    data={"response":tweets_list}
+    return JsonResponse(data)
