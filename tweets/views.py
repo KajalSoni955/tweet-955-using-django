@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render
 from django.http import HttpResponse,Http404,JsonResponse
 from .models import Tweet
@@ -12,6 +13,7 @@ returns json data
 so we can consume via js, swift, java, iOS/android
 
 """
+
 def tweet_detail_view(request, tweet_id,*args, **kwargs):
     data={
         "id": tweet_id,
@@ -27,8 +29,11 @@ def tweet_detail_view(request, tweet_id,*args, **kwargs):
     return JsonResponse(data, status=status)
 #HttpResponse(f"<h1>Hello {tweet_id}-{obj.content}</h1>")
 
+
 def tweet_list_view(request, *args, **kwargs):
     qs = Tweet.objects.all() #qs=queryset, a convention
-    tweets_list = [{"id": x.id, "content": x.content,} for x in qs] #iterating through the list 
-    data = {"response":tweets_list}
+    tweets_list = [{"id": x.id, "content": x.content, "likes": random.randint(0,121)} for x in qs] #iterating through the list 
+    data = {
+        "response":tweets_list
+        }
     return JsonResponse(data)
