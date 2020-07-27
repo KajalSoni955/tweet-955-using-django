@@ -6,7 +6,7 @@ from .models import Tweet
 MAX_TWEET_LENGTH = 240
 
 class TweetForm(forms.ModelForm):
-    class Meta:
+    class Meta:    #can also do the model charfield.... method
         model = Tweet
         fields = ['content']
     
